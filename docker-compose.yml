@@ -13,8 +13,8 @@
 
   webapi:
     build:
-      context: ./Test.October
-      dockerfile: Dockerfile
+      context: ../Test.October
+      dockerfile: Test.October/Dockerfile
     container_name: webapi
     environment:
       ConnectionStrings__DefaultConnection: "Host=db;Database=TradeStatsDB;Username=postgres;Password=postgres"
