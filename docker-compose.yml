@@ -1,0 +1,27 @@
+﻿services:
+  db:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: TradeStatsDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  webapi:
+    build:
+      context: ./Test.October
+      dockerfile: Dockerfile
+    container_name: webapi
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=db;Database=TradeStatsDB;Username=postgres;Password=postgres"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
