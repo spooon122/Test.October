@@ -1,27 +1,54 @@
 ﻿services:
-  db:
-    image: postgres:latest
-    container_name: postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: TradeStatsDB
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
   webapi:
     build:
       context: ../Test.October
       dockerfile: Test.October/Dockerfile
-    container_name: webapi
+    container_name: StatsWeb
     environment:
-      ConnectionStrings__DefaultConnection: "Host=db;Database=TradeStatsDB;Username=postgres;Password=postgres"
+      DatabaseSettings:ConnectionString: "Host=db;Database=TradeStatsDB;Username=postgres;Password=postgres"
     ports:
       - "8080:8080"
     depends_on:
       - db
+    networks:
+      - postgres
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - postgres
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "test@test.com"
+      PGADMIN_DEFAULT_PASSWORD: "test"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+    networks:
+      - postgres
 
 volumes:
   postgres_data:
+  pgadmin-data:
+    
+networks:
+  postgres:
+    driver: bridge

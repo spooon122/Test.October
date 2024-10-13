@@ -10,10 +10,21 @@ public class TradeDbContext(DbContextOptions<TradeDbContext> options) : DbContex
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
         modelBuilder.Entity<Trade>()
             .HasKey(x => x.ID);
 
         modelBuilder.Entity<Trade>()
+            .Property(t => t.Side)
+            .IsRequired();
+
+        modelBuilder.Entity<Trade>()
             .ToTable("trades_table");
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.UseNpgsql("Host=db;Database=TradeStatsDB;Username=postgres;Password=postgres");
     }
 }
