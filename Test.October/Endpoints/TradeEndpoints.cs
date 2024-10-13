@@ -1,7 +1,5 @@
-﻿using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Test.October.Data;
-using Test.October.Services;
 using Test.October.Services.Interfaces;
 
 namespace Test.October.Endpoints;
