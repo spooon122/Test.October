@@ -15,13 +15,13 @@ public class GraphService : IGraphService
             foreach (var trade in trades)
             {
                 double pnl;
-                if (trade.Side == "BUY")
+                if (trade.side == "BUY")
                 {
-                    pnl = 100 * (trade.ClosePrice - trade.OpenPrice) / trade.OpenPrice;
+                    pnl = 100 * (trade.closeprice - trade.openprice) / trade.openprice;
                 }
                 else
                 {
-                    pnl = -100 * (trade.OpenPrice - trade.ClosePrice) / trade.OpenPrice;
+                    pnl = -100 * (trade.openprice - trade.closeprice) / trade.openprice;
                 }
 
                 currentPnL += pnl;

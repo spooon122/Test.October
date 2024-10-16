@@ -16,7 +16,7 @@ public static class TradeEndpoints
         });
         app.MapGet("/stats/{ticker}", async (TradeDbContext db, IStatsService service, string ticker) =>
         {
-            var trades = await db.Trade.Where(x => x.Ticker == ticker).ToListAsync();
+            var trades = await db.Trade.Where(x => x.ticker == ticker).ToListAsync();
             
             return Results.Content(service.GetStats(trades).ToString(), "text/html");
         });
@@ -31,7 +31,7 @@ public static class TradeEndpoints
         app.MapGet("/graph/{ticker}", async (TradeDbContext db, IGraphService service, string ticker) =>
         {
             var trades = await db.Trade
-                .Where(t => t.Ticker == ticker)
+                .Where(t => t.ticker == ticker)
                 .ToListAsync();
             
             var graph = service.Graph(trades);

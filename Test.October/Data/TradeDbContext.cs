@@ -12,10 +12,10 @@ public class TradeDbContext(DbContextOptions<TradeDbContext> options) : DbContex
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Trade>()
-            .HasKey(x => x.ID);
+            .HasKey(x => x.id);
 
         modelBuilder.Entity<Trade>()
-            .Property(t => t.Side)
+            .Property(t => t.side)
             .IsRequired();
 
         modelBuilder.Entity<Trade>()
