@@ -41,14 +41,14 @@ public class StatsService : IStatsService
 
             foreach (var trade in trades)
             {
-                html.Append($"<tr><td>{trade.ID}</td>" +
-                    $"<td>{trade.Ticker}</td>" +
-                    $"<td>{trade.Side}</td>" +
-                    $"<td>{trade.OpenPrice}</td>" +
-                    $"<td>{trade.ClosePrice}</td>" +
-                    $"<td>{trade.Quantity}</td>" +
-                    $"<td>{trade.OpenTime}</td>" +
-                    $"<td>{trade.CloseTime}</td>" +
+                html.Append($"<tr><td>{trade.id}</td>" +
+                    $"<td>{trade.ticker}</td>" +
+                    $"<td>{trade.side}</td>" +
+                    $"<td>{trade.openprice}</td>" +
+                    $"<td>{trade.closeprice}</td>" +
+                    $"<td>{trade.quantity}</td>" +
+                    $"<td>{trade.opentime}</td>" +
+                    $"<td>{trade.closetime}</td>" +
                     $"</tr>");
             }
 

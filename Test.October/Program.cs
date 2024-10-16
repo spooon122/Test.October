@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddRazorPages();
 builder.Services.AddDbContext<TradeDbContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("TradeStatsDB")));
 
@@ -18,18 +18,12 @@ builder.Services.AddScoped<IStatsService, StatsService>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.ApplyMigrations();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseRouting();
 app.UseStaticFiles();
 app.MapRazorPages();
 
-app.UseHttpsRedirection();
 app.TradesEndpoints();
 
 app.Run();

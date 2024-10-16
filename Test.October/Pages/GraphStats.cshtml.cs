@@ -13,30 +13,30 @@ public class GraphStats(TradeDbContext db) : PageModel
     {
         var trades = string.IsNullOrEmpty(ticker) 
             ? await db.Trade.ToListAsync() 
-            : await db.Trade.Where(t => t.Ticker == ticker).ToListAsync();
+            : await db.Trade.Where(t => t.ticker == ticker).ToListAsync();
 
         foreach (var trade in trades)
         {
             double pnl;
-            if (trade.Side == "BUY")
+            if (trade.side == "BUY")
             {
-                pnl = 100 * (trade.ClosePrice - trade.OpenPrice) / trade.OpenPrice;
+                pnl = 100 * (trade.closeprice - trade.openprice) / trade.openprice;
             }
             else
             {
-                pnl = -100 * (trade.OpenPrice - trade.ClosePrice) / trade.OpenPrice;
+                pnl = -100 * (trade.closeprice - trade.openprice) / trade.openprice;
             }
 
             TradesWithPnL.Add(new TradeWithPnL
             {
-                ID = trade.ID,
-                Ticker = trade.Ticker,
-                OpenPrice = trade.OpenPrice,
-                ClosePrice = trade.ClosePrice,
-                Quantity = trade.Quantity,
-                OpenTime = trade.OpenTime,
-                CloseTime = trade.CloseTime,
-                Side = trade.Side,
+                id = trade.id,
+                ticker = trade.ticker,
+                openprice = trade.openprice,
+                closeprice = trade.closeprice,
+                quantity = trade.quantity,
+                opentime = trade.opentime,
+                closetime = trade.closetime,
+                side = trade.side,
                 PnL = pnl
             });
         }

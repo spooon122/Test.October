@@ -11,7 +11,7 @@ public class TradesStats(TradeDbContext db) : PageModel
     public async Task OnGetAsync(string? ticker)
     {
         Trades = !string.IsNullOrEmpty(ticker)
-            ? await db.Trade.Where(t => t.Ticker == ticker).ToListAsync()
+            ? await db.Trade.Where(t => t.ticker == ticker).ToListAsync()
             : await db.Trade.ToListAsync();
     }
 }
