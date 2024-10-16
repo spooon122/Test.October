@@ -10,8 +10,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TradeDbContext>();
 
-builder.Services.AddRazorPages();
-
 builder.Services.AddScoped<IGraphService, GraphService>();
 builder.Services.AddScoped<IStatsService, StatsService>();
 
@@ -21,12 +19,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.ApplyMigrations();
 }
 
 app.UseRouting();
 app.UseStaticFiles();
-app.MapRazorPages();
 
 app.UseHttpsRedirection();
 app.TradesEndpoints();

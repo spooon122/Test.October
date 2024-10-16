@@ -10,17 +10,28 @@
       - "8080:8080"
     depends_on:
       - db
+    networks:
+      - postgres
+
   db:
     image: postgres:latest
     container_name: postgres_db
     environment:
+      POSTGRES_DB: TradeStatsDB
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./TestDataScript/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./TestDataScript/createTestData.sql:/docker-entrypoint-initdb.d/createTestData.sql
+    networks:
+      - postgres
 
 volumes:
   postgres_data:
 
+networks:
+  postgres:
+    driver: bridge
